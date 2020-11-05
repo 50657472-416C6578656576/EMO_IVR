@@ -1,0 +1,14 @@
+<article class="panel panel-default">
+    <div class="panel-body">
+        {{ message.content }}
+    </div>
+    <footer class="panel-footer">
+        <div class="author">
+            {{ message.username }}
+        </div>
+        <div class="config" *ngIf="belongsToUser()" style="padding-right:15px">
+            <a class="btn-sm btn-success" (click)="onEdit()">Редактировать сообщение</a>
+            <a class="btn-sm btn-danger" (click)="onDelete()" >Удалить сообщение</a>
+        </div>
+    </footer>
+</article>
