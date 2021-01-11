@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\api",
+    "\\api\\controllers",
+    "\\api\\models",
+    "\\bin",
+    "\\client",
+    "\\client\\src",
+    "\\client\\src\\app",
+    "\\client\\src\\app\\register"
+  ],
+  "SelectedNode": "\\api\\controllers\\authentication.js",
+  "PreviewInSolutionExplorer": false
+}
