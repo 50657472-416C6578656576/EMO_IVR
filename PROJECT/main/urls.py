@@ -6,6 +6,8 @@ urlpatterns = [
     path('', views.home, name='homepage'),
 
     # Competitions part
+    path('comp/search/', views.Search.as_view(template_name='competition/competition_search_list.html'), name='search'),
+    path('my_comps/', views.MyCompList.as_view(template_name='competition/my_competitions_list.html'), name='my_comp_list'),
     path('my_team', views.my_team, name='my_team'),
     path('comp/<int:pk>', views.CompDetailView.as_view(), name='comp_details'),
     path('my_team/sportsmen/', views.add_sprtmn, name='sportsmen_list'),

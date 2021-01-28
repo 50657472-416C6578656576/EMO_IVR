@@ -1,0 +1,45 @@
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+  <label class="form-check-label" for="flexCheckDefault">
+    Default checkbox
+  </label>
+</div>
+{% extends  'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        {% if not user.team.title %}
+        <div class="alert alert-warning" role="alert">
+            У Вас еще нет команды, создайте ее!
+        </div>
+        {% else %}
+        <div class="form-check">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Выбирите участников:</h3>
+                        <div class="list-group">
+                            {% if not sprtmn %}
+                            <br>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                Ваша команда пуста... <strong>Добавьте</strong> кого-нибудь :)
+                            </div>
+                            {% endif %}
+                            {% for i in sprtmn %}
+                            <input class="form-check-input" type="checkbox" value="" >
+                            <label class="form-check-label" for="flexCheckDefault">
+                                    <h5 class="mb-1">{{i.first_name}} {{i.last_name}}</h5>
+                                    <small class="text-muted">{{i.start_number}}</small>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -4,7 +4,7 @@ from . import forms
 import account.forms
 import account.views
 from .models import Competition, Sportsman, Team
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 
 
 def home(request):
@@ -63,6 +63,20 @@ def add_sprtmn(request):
 
 
 @login_required
+def parcticipants_registration(request):
+    error = ''
+    user_list = Sportsman.objects.filter(trainer=request.user).order_by("dob")
+
+    data = {
+        # 'form': form,
+        'error': error,
+        'user_list': user_list,
+    }
+
+    return render(request, 'competition/participants_registration.html', data)
+
+
+@login_required
 def add_comp(request):
     error = ''
     if request.method == 'POST':
@@ -84,6 +98,27 @@ def add_comp(request):
     }
 
     return render(request, 'competition/add_one.html', data)
+
+
+class Search(ListView):
+
+    model = Competition
+
+    def get_queryset(self):
+        return Competition.objects.filter(title__icontains=self.request.GET.get("q")).order_by("-comp_time")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['q'] = self.request.GET.get("q")
+        return context
+
+
+class MyCompList(ListView):
+
+    model = Competition
+
+    def get_queryset(self):
+        return Competition.objects.filter(owner=self.request.user).order_by("-comp_time")
 
 
 class LoginView(account.views.LoginView):
