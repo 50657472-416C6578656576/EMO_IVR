@@ -1,0 +1,28 @@
+{% extends  'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Моя команда{% endblock %}
+
+{% block content %}
+<div class="card">
+<div class="card-body">
+    {% if not user.team.title %}
+    <div class="alert alert-warning" role="alert">
+        У Вас еще нет команды, создайте ее!
+    </div>
+    <form method="post">
+          {% csrf_token %}
+          {{ form|crispy }}<br>
+    <button type="submit" class="btn btn-success">Создать</button>
+        <span>{{ error }}</span>
+    </form>
+    {% else %}
+
+    <h3>Название: "{{user.team.title}}"</h3>
+    <h4>Клуб: "{{user.team.club}}"</h4>
+    <a type="button" class="btn btn-secondary btn-lg btn-block" href="{% url 'sportsmen_list' %}">Состав команды</a>
+
+    {% endif %}
+</div>
+</div>
+{% endblock %}

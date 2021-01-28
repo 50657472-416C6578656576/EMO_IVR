@@ -1,0 +1,4 @@
+{% load account_tags %}
+{% load i18n %}
+
+{% block content %}{% autoescape off %}{% user_display user as user_display %}Для подтверждения аккаунта {{ user_display }} на сайте "BMX Calc" перейдите по ссылке {{ activate_url }}{% endautoescape %}{% endblock %}

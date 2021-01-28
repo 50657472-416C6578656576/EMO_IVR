@@ -1,0 +1,25 @@
+{% extends  'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{user.username}}{% endblock %}
+
+{% block content %}
+
+<ul class="list-group">
+  <li class="list-group-item">
+      <h4>Ваш аккаунт:</h4>
+      <h6>Имя пользователя: {{user.username}}</h6>
+      <h6>Адрес электронной почты: {{user.email}}</h6>
+  </li>
+  <li class="list-group-item">
+      <h4>Сменить пароль:</h4>
+      <form method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <h5></h5>
+          <button type="submit" class="btn btn-dark">Подтвердить</button>
+      </form>
+  </li>
+</ul>
+
+{% endblock %}

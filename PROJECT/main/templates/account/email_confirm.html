@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load account_tags %}
+
+{% block title %}E-mail{% endblock %}
+
+
+{% block content %}
+<body class="text-center">
+<div class="card">
+<div class="card-body">
+<h2>Завершение регистрации</h2>
+
+{% if confirmation %}
+
+{% user_display confirmation.email_address.user as user_display %}
+
+<p>{% blocktrans with confirmation.email_address.email as email %} Создать аккаунт {{ user_display }}, привязанный к почте <a href="mailto:{{ email }}">{{ email }}</a> ? {% endblocktrans %}</p>
+
+<form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+{% csrf_token %}
+    <button type="submit" class="btn btn-success">Да!</button>
+</form>
+
+{% else %}
+
+{% url 'account_email' as email_url %}
+
+<p>{% blocktrans %}Эта ссылка недействительна :(</a>.{% endblocktrans %}</p>
+
+{% endif %}
+
+</div>
+</div>
+</body>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends  'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ comp_element.title }}{% endblock %}
+
+{% block content %}
+<div class="card">
+<div class="card-body">
+<ul class="list-group">
+  <li class="list-group-item">
+
+    <h2>{{ comp_element.title }}</h2>
+
+  </li>
+  <li class="list-group-item">
+
+      <img src="{{ comp_element.preview.url }}" class="img-fluid">
+
+  </li>
+  <li class="list-group-item">
+
+      <h5>Дата проведения: <span class="badge badge-secondary" align=”center”>{{ comp_element.comp_time }}</span></h5>
+
+  </li>
+  <li class="list-group-item">
+
+      <h5>Краткое описание: "{{ comp_element.description }}"</h5>
+
+  </li>
+  <li class="list-group-item">
+
+      <p>{{ comp_element.full_text|linebreaks }}</p>
+
+  </li>
+</ul>
+  <br>
+  {% if comp_element.owner == user %}
+  <button type="button" class="btn btn-success btn-lg btn-block">Управление</button>
+  {% endif %}
+<button type="button" class="btn btn-secondary btn-lg btn-block">Участвовать!</button>
+      </div>
+</div>
+{% endblock %}

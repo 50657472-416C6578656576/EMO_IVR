@@ -1,0 +1,41 @@
+{% extends  'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="card">
+<div class="card-body">
+    {% if not user.is_authenticated %}
+    <div class="alert alert-warning" role="alert">
+        Для полноценного использования сайта создайте аккаунт или, если он уже у Вас есть, войдите в него!
+    </div>
+    {% endif %}
+    <div class="card-columns">
+    {% if user.is_authenticated %}
+     <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h4 class="card-title">Новое событие</h4>
+<!--            <h6 class="card-subtitle mb-2 text-muted">событие</h6>-->
+<!--            <p class="card-text">{{i.description}}</p>-->
+<!--            <a class="badge badge-info">{{i.comp_time}}</a>-->
+            <a href="{% url 'add_competition' %}" type="button" class="btn btn-outline-success">Создать</a>
+        </div>
+    </div>
+    {% endif %}
+    {% for i in comp %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{i.title}}</h5>
+<!--            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>-->
+            <p class="card-text">{{i.description}}</p>
+            <a class="badge badge-info">{{i.comp_time}}</a>
+            <a class="card-link"></a>
+            <a href="{% url 'comp_details' i.id %}" class="card-link">Подробнее</a>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+</div>
+</div>
+{% endblock %}

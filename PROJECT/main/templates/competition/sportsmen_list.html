@@ -1,0 +1,55 @@
+{% extends  'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Моя команда{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        {% if not user.team.title %}
+        <div class="alert alert-warning" role="alert">
+            У Вас еще нет команды, создайте ее!
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-sm-3">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    {% if error %}
+                    <span class="badge badge-warning">{{ error }}</span>
+                    {% endif %}<br>
+                    <button type="submit" class="btn btn-success">Добавить</button>
+                </form>
+            </div>
+
+            <div class="col-sm-9">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Спортсмены команды:</h3>
+                        <div class="list-group">
+                            {% if not sprtmn %}
+                            <br>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                Ваша команда пуста... <strong>Добавьте</strong> кого-нибудь :)
+                            </div>
+                            {% endif %}
+                            {% for i in sprtmn %}
+                            <a class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{{i.first_name}} {{i.last_name}}</h5>
+                                    <small class="text-muted">{{i.start_number}}</small>
+                                </div>
+                                            <p class="mb-1">{{i.about}}</p>
+                                <small class="text-muted">{{i.dob}}</small>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
